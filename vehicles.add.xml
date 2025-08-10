@@ -1,0 +1,303 @@
+<?xml version="1.0" ?>
+<vTypes>
+    <vType id="electric1" vClass="passenger" emissionClass="Energy/Unknown" accel="2.50" decel="4.50" length="4.00" maxSpeed="33.33" sigma="0.0" minGap="1.50" mass="1200" color="1,1,0">
+        <param key="has.battery.device" value="true"/>
+        <param key="device.battery.capacity" value="40000"/>
+        <param key="maximumPower" value="80000"/>
+        <param key="frontSurfaceArea" value="2.00"/>
+        <param key="airDragCoefficient" value="0.240"/>
+        <param key="rotatingMass" value="20"/>
+        <param key="radialDragCoefficient" value="0.400"/>
+        <param key="rollDragCoefficient" value="0.006"/>
+        <param key="constantPowerIntake" value="200"/>
+        <param key="propulsionEfficiency" value="0.85"/>
+        <param key="recuperationEfficiency" value="0.80"/>
+        <param key="stoppingThreshold" value="0.1"/>
+        <param key="device.battery.maximumChargeRate" value="40000"/>
+    </vType>
+    <vType id="electric2" vClass="passenger" emissionClass="Energy/Unknown" accel="2.58" decel="4.58" length="4.05" maxSpeed="34.21" sigma="0.0" minGap="1.53" mass="1242" color="1,1,0">
+        <param key="has.battery.device" value="true"/>
+        <param key="device.battery.capacity" value="43158"/>
+        <param key="maximumPower" value="86316"/>
+        <param key="frontSurfaceArea" value="2.03"/>
+        <param key="airDragCoefficient" value="0.246"/>
+        <param key="rotatingMass" value="21"/>
+        <param key="radialDragCoefficient" value="0.403"/>
+        <param key="rollDragCoefficient" value="0.006"/>
+        <param key="constantPowerIntake" value="216"/>
+        <param key="propulsionEfficiency" value="0.86"/>
+        <param key="recuperationEfficiency" value="0.81"/>
+        <param key="stoppingThreshold" value="0.1"/>
+        <param key="device.battery.maximumChargeRate" value="45789"/>
+    </vType>
+    <vType id="electric3" vClass="passenger" emissionClass="Energy/Unknown" accel="2.66" decel="4.66" length="4.11" maxSpeed="35.09" sigma="0.0" minGap="1.55" mass="1284" color="1,1,0">
+        <param key="has.battery.device" value="true"/>
+        <param key="device.battery.capacity" value="46316"/>
+        <param key="maximumPower" value="92632"/>
+        <param key="frontSurfaceArea" value="2.05"/>
+        <param key="airDragCoefficient" value="0.252"/>
+        <param key="rotatingMass" value="22"/>
+        <param key="radialDragCoefficient" value="0.405"/>
+        <param key="rollDragCoefficient" value="0.006"/>
+        <param key="constantPowerIntake" value="232"/>
+        <param key="propulsionEfficiency" value="0.86"/>
+        <param key="recuperationEfficiency" value="0.82"/>
+        <param key="stoppingThreshold" value="0.1"/>
+        <param key="device.battery.maximumChargeRate" value="51579"/>
+    </vType>
+    <vType id="electric4" vClass="passenger" emissionClass="Energy/Unknown" accel="2.74" decel="4.74" length="4.16" maxSpeed="35.96" sigma="0.0" minGap="1.58" mass="1326" color="1,1,0">
+        <param key="has.battery.device" value="true"/>
+        <param key="device.battery.capacity" value="49474"/>
+        <param key="maximumPower" value="98947"/>
+        <param key="frontSurfaceArea" value="2.08"/>
+        <param key="airDragCoefficient" value="0.257"/>
+        <param key="rotatingMass" value="23"/>
+        <param key="radialDragCoefficient" value="0.408"/>
+        <param key="rollDragCoefficient" value="0.007"/>
+        <param key="constantPowerIntake" value="247"/>
+        <param key="propulsionEfficiency" value="0.87"/>
+        <param key="recuperationEfficiency" value="0.82"/>
+        <param key="stoppingThreshold" value="0.1"/>
+        <param key="device.battery.maximumChargeRate" value="57368"/>
+    </vType>
+    <vType id="electric5" vClass="passenger" emissionClass="Energy/Unknown" accel="2.82" decel="4.82" length="4.21" maxSpeed="36.84" sigma="0.0" minGap="1.61" mass="1368" color="1,1,0">
+        <param key="has.battery.device" value="true"/>
+        <param key="device.battery.capacity" value="52632"/>
+        <param key="maximumPower" value="105263"/>
+        <param key="frontSurfaceArea" value="2.11"/>
+        <param key="airDragCoefficient" value="0.263"/>
+        <param key="rotatingMass" value="24"/>
+        <param key="radialDragCoefficient" value="0.411"/>
+        <param key="rollDragCoefficient" value="0.007"/>
+        <param key="constantPowerIntake" value="263"/>
+        <param key="propulsionEfficiency" value="0.87"/>
+        <param key="recuperationEfficiency" value="0.83"/>
+        <param key="stoppingThreshold" value="0.1"/>
+        <param key="device.battery.maximumChargeRate" value="63158"/>
+    </vType>
+    <vType id="electric6" vClass="passenger" emissionClass="Energy/Unknown" accel="2.89" decel="4.89" length="4.26" maxSpeed="37.72" sigma="0.0" minGap="1.63" mass="1411" color="1,1,0">
+        <param key="has.battery.device" value="true"/>
+        <param key="device.battery.capacity" value="55789"/>
+        <param key="maximumPower" value="111579"/>
+        <param key="frontSurfaceArea" value="2.13"/>
+        <param key="airDragCoefficient" value="0.269"/>
+        <param key="rotatingMass" value="25"/>
+        <param key="radialDragCoefficient" value="0.413"/>
+        <param key="rollDragCoefficient" value="0.007"/>
+        <param key="constantPowerIntake" value="279"/>
+        <param key="propulsionEfficiency" value="0.88"/>
+        <param key="recuperationEfficiency" value="0.84"/>
+        <param key="stoppingThreshold" value="0.1"/>
+        <param key="device.battery.maximumChargeRate" value="68947"/>
+    </vType>
+    <vType id="electric7" vClass="passenger" emissionClass="Energy/Unknown" accel="2.97" decel="4.97" length="4.32" maxSpeed="38.60" sigma="0.0" minGap="1.66" mass="1453" color="1,1,0">
+        <param key="has.battery.device" value="true"/>
+        <param key="device.battery.capacity" value="58947"/>
+        <param key="maximumPower" value="117895"/>
+        <param key="frontSurfaceArea" value="2.16"/>
+        <param key="airDragCoefficient" value="0.275"/>
+        <param key="rotatingMass" value="26"/>
+        <param key="radialDragCoefficient" value="0.416"/>
+        <param key="rollDragCoefficient" value="0.007"/>
+        <param key="constantPowerIntake" value="295"/>
+        <param key="propulsionEfficiency" value="0.88"/>
+        <param key="recuperationEfficiency" value="0.85"/>
+        <param key="stoppingThreshold" value="0.1"/>
+        <param key="device.battery.maximumChargeRate" value="74737"/>
+    </vType>
+    <vType id="electric8" vClass="passenger" emissionClass="Energy/Unknown" accel="3.05" decel="5.05" length="4.37" maxSpeed="39.47" sigma="0.0" minGap="1.68" mass="1495" color="1,1,0">
+        <param key="has.battery.device" value="true"/>
+        <param key="device.battery.capacity" value="62105"/>
+        <param key="maximumPower" value="124211"/>
+        <param key="frontSurfaceArea" value="2.18"/>
+        <param key="airDragCoefficient" value="0.281"/>
+        <param key="rotatingMass" value="27"/>
+        <param key="radialDragCoefficient" value="0.418"/>
+        <param key="rollDragCoefficient" value="0.007"/>
+        <param key="constantPowerIntake" value="311"/>
+        <param key="propulsionEfficiency" value="0.89"/>
+        <param key="recuperationEfficiency" value="0.86"/>
+        <param key="stoppingThreshold" value="0.1"/>
+        <param key="device.battery.maximumChargeRate" value="80526"/>
+    </vType>
+    <vType id="electric9" vClass="passenger" emissionClass="Energy/Unknown" accel="3.13" decel="5.13" length="4.42" maxSpeed="40.35" sigma="0.0" minGap="1.71" mass="1537" color="1,1,0">
+        <param key="has.battery.device" value="true"/>
+        <param key="device.battery.capacity" value="65263"/>
+        <param key="maximumPower" value="130526"/>
+        <param key="frontSurfaceArea" value="2.21"/>
+        <param key="airDragCoefficient" value="0.286"/>
+        <param key="rotatingMass" value="28"/>
+        <param key="radialDragCoefficient" value="0.421"/>
+        <param key="rollDragCoefficient" value="0.008"/>
+        <param key="constantPowerIntake" value="326"/>
+        <param key="propulsionEfficiency" value="0.89"/>
+        <param key="recuperationEfficiency" value="0.86"/>
+        <param key="stoppingThreshold" value="0.1"/>
+        <param key="device.battery.maximumChargeRate" value="86316"/>
+    </vType>
+    <vType id="electric10" vClass="passenger" emissionClass="Energy/Unknown" accel="3.21" decel="5.21" length="4.47" maxSpeed="41.23" sigma="0.0" minGap="1.74" mass="1579" color="1,1,0">
+        <param key="has.battery.device" value="true"/>
+        <param key="device.battery.capacity" value="68421"/>
+        <param key="maximumPower" value="136842"/>
+        <param key="frontSurfaceArea" value="2.24"/>
+        <param key="airDragCoefficient" value="0.292"/>
+        <param key="rotatingMass" value="29"/>
+        <param key="radialDragCoefficient" value="0.424"/>
+        <param key="rollDragCoefficient" value="0.008"/>
+        <param key="constantPowerIntake" value="342"/>
+        <param key="propulsionEfficiency" value="0.90"/>
+        <param key="recuperationEfficiency" value="0.87"/>
+        <param key="stoppingThreshold" value="0.1"/>
+        <param key="device.battery.maximumChargeRate" value="92105"/>
+    </vType>
+    <vType id="electric11" vClass="passenger" emissionClass="Energy/Unknown" accel="3.29" decel="5.29" length="4.53" maxSpeed="42.11" sigma="0.0" minGap="1.76" mass="1621" color="1,1,0">
+        <param key="has.battery.device" value="true"/>
+        <param key="device.battery.capacity" value="71579"/>
+        <param key="maximumPower" value="143158"/>
+        <param key="frontSurfaceArea" value="2.26"/>
+        <param key="airDragCoefficient" value="0.298"/>
+        <param key="rotatingMass" value="31"/>
+        <param key="radialDragCoefficient" value="0.426"/>
+        <param key="rollDragCoefficient" value="0.008"/>
+        <param key="constantPowerIntake" value="358"/>
+        <param key="propulsionEfficiency" value="0.90"/>
+        <param key="recuperationEfficiency" value="0.88"/>
+        <param key="stoppingThreshold" value="0.1"/>
+        <param key="device.battery.maximumChargeRate" value="97895"/>
+    </vType>
+    <vType id="electric12" vClass="passenger" emissionClass="Energy/Unknown" accel="3.37" decel="5.37" length="4.58" maxSpeed="42.98" sigma="0.0" minGap="1.79" mass="1663" color="1,1,0">
+        <param key="has.battery.device" value="true"/>
+        <param key="device.battery.capacity" value="74737"/>
+        <param key="maximumPower" value="149474"/>
+        <param key="frontSurfaceArea" value="2.29"/>
+        <param key="airDragCoefficient" value="0.304"/>
+        <param key="rotatingMass" value="32"/>
+        <param key="radialDragCoefficient" value="0.429"/>
+        <param key="rollDragCoefficient" value="0.008"/>
+        <param key="constantPowerIntake" value="374"/>
+        <param key="propulsionEfficiency" value="0.91"/>
+        <param key="recuperationEfficiency" value="0.89"/>
+        <param key="stoppingThreshold" value="0.1"/>
+        <param key="device.battery.maximumChargeRate" value="103684"/>
+    </vType>
+    <vType id="electric13" vClass="passenger" emissionClass="Energy/Unknown" accel="3.45" decel="5.45" length="4.63" maxSpeed="43.86" sigma="0.0" minGap="1.82" mass="1705" color="1,1,0">
+        <param key="has.battery.device" value="true"/>
+        <param key="device.battery.capacity" value="77895"/>
+        <param key="maximumPower" value="155789"/>
+        <param key="frontSurfaceArea" value="2.32"/>
+        <param key="airDragCoefficient" value="0.309"/>
+        <param key="rotatingMass" value="33"/>
+        <param key="radialDragCoefficient" value="0.432"/>
+        <param key="rollDragCoefficient" value="0.009"/>
+        <param key="constantPowerIntake" value="389"/>
+        <param key="propulsionEfficiency" value="0.91"/>
+        <param key="recuperationEfficiency" value="0.89"/>
+        <param key="stoppingThreshold" value="0.1"/>
+        <param key="device.battery.maximumChargeRate" value="109474"/>
+    </vType>
+    <vType id="electric14" vClass="passenger" emissionClass="Energy/Unknown" accel="3.53" decel="5.53" length="4.68" maxSpeed="44.74" sigma="0.0" minGap="1.84" mass="1747" color="1,1,0">
+        <param key="has.battery.device" value="true"/>
+        <param key="device.battery.capacity" value="81053"/>
+        <param key="maximumPower" value="162105"/>
+        <param key="frontSurfaceArea" value="2.34"/>
+        <param key="airDragCoefficient" value="0.315"/>
+        <param key="rotatingMass" value="34"/>
+        <param key="radialDragCoefficient" value="0.434"/>
+        <param key="rollDragCoefficient" value="0.009"/>
+        <param key="constantPowerIntake" value="405"/>
+        <param key="propulsionEfficiency" value="0.92"/>
+        <param key="recuperationEfficiency" value="0.90"/>
+        <param key="stoppingThreshold" value="0.1"/>
+        <param key="device.battery.maximumChargeRate" value="115263"/>
+    </vType>
+    <vType id="electric15" vClass="passenger" emissionClass="Energy/Unknown" accel="3.61" decel="5.61" length="4.74" maxSpeed="45.61" sigma="0.0" minGap="1.87" mass="1789" color="1,1,0">
+        <param key="has.battery.device" value="true"/>
+        <param key="device.battery.capacity" value="84211"/>
+        <param key="maximumPower" value="168421"/>
+        <param key="frontSurfaceArea" value="2.37"/>
+        <param key="airDragCoefficient" value="0.321"/>
+        <param key="rotatingMass" value="35"/>
+        <param key="radialDragCoefficient" value="0.437"/>
+        <param key="rollDragCoefficient" value="0.009"/>
+        <param key="constantPowerIntake" value="421"/>
+        <param key="propulsionEfficiency" value="0.92"/>
+        <param key="recuperationEfficiency" value="0.91"/>
+        <param key="stoppingThreshold" value="0.1"/>
+        <param key="device.battery.maximumChargeRate" value="121053"/>
+    </vType>
+    <vType id="electric16" vClass="passenger" emissionClass="Energy/Unknown" accel="3.68" decel="5.68" length="4.79" maxSpeed="46.49" sigma="0.0" minGap="1.89" mass="1832" color="1,1,0">
+        <param key="has.battery.device" value="true"/>
+        <param key="device.battery.capacity" value="87368"/>
+        <param key="maximumPower" value="174737"/>
+        <param key="frontSurfaceArea" value="2.39"/>
+        <param key="airDragCoefficient" value="0.327"/>
+        <param key="rotatingMass" value="36"/>
+        <param key="radialDragCoefficient" value="0.439"/>
+        <param key="rollDragCoefficient" value="0.009"/>
+        <param key="constantPowerIntake" value="437"/>
+        <param key="propulsionEfficiency" value="0.93"/>
+        <param key="recuperationEfficiency" value="0.92"/>
+        <param key="stoppingThreshold" value="0.1"/>
+        <param key="device.battery.maximumChargeRate" value="126842"/>
+    </vType>
+    <vType id="electric17" vClass="passenger" emissionClass="Energy/Unknown" accel="3.76" decel="5.76" length="4.84" maxSpeed="47.37" sigma="0.0" minGap="1.92" mass="1874" color="1,1,0">
+        <param key="has.battery.device" value="true"/>
+        <param key="device.battery.capacity" value="90526"/>
+        <param key="maximumPower" value="181053"/>
+        <param key="frontSurfaceArea" value="2.42"/>
+        <param key="airDragCoefficient" value="0.333"/>
+        <param key="rotatingMass" value="37"/>
+        <param key="radialDragCoefficient" value="0.442"/>
+        <param key="rollDragCoefficient" value="0.009"/>
+        <param key="constantPowerIntake" value="453"/>
+        <param key="propulsionEfficiency" value="0.93"/>
+        <param key="recuperationEfficiency" value="0.93"/>
+        <param key="stoppingThreshold" value="0.1"/>
+        <param key="device.battery.maximumChargeRate" value="132632"/>
+    </vType>
+    <vType id="electric18" vClass="passenger" emissionClass="Energy/Unknown" accel="3.84" decel="5.84" length="4.89" maxSpeed="48.25" sigma="0.0" minGap="1.95" mass="1916" color="1,1,0">
+        <param key="has.battery.device" value="true"/>
+        <param key="device.battery.capacity" value="93684"/>
+        <param key="maximumPower" value="187368"/>
+        <param key="frontSurfaceArea" value="2.45"/>
+        <param key="airDragCoefficient" value="0.338"/>
+        <param key="rotatingMass" value="38"/>
+        <param key="radialDragCoefficient" value="0.445"/>
+        <param key="rollDragCoefficient" value="0.010"/>
+        <param key="constantPowerIntake" value="468"/>
+        <param key="propulsionEfficiency" value="0.94"/>
+        <param key="recuperationEfficiency" value="0.93"/>
+        <param key="stoppingThreshold" value="0.1"/>
+        <param key="device.battery.maximumChargeRate" value="138421"/>
+    </vType>
+    <vType id="electric19" vClass="passenger" emissionClass="Energy/Unknown" accel="3.92" decel="5.92" length="4.95" maxSpeed="49.12" sigma="0.0" minGap="1.97" mass="1958" color="1,1,0">
+        <param key="has.battery.device" value="true"/>
+        <param key="device.battery.capacity" value="96842"/>
+        <param key="maximumPower" value="193684"/>
+        <param key="frontSurfaceArea" value="2.47"/>
+        <param key="airDragCoefficient" value="0.344"/>
+        <param key="rotatingMass" value="39"/>
+        <param key="radialDragCoefficient" value="0.447"/>
+        <param key="rollDragCoefficient" value="0.010"/>
+        <param key="constantPowerIntake" value="484"/>
+        <param key="propulsionEfficiency" value="0.94"/>
+        <param key="recuperationEfficiency" value="0.94"/>
+        <param key="stoppingThreshold" value="0.1"/>
+        <param key="device.battery.maximumChargeRate" value="144211"/>
+    </vType>
+    <vType id="electric20" vClass="passenger" emissionClass="Energy/Unknown" accel="4.00" decel="6.00" length="5.00" maxSpeed="50.00" sigma="0.0" minGap="2.00" mass="2000" color="1,1,0">
+        <param key="has.battery.device" value="true"/>
+        <param key="device.battery.capacity" value="100000"/>
+        <param key="maximumPower" value="200000"/>
+        <param key="frontSurfaceArea" value="2.50"/>
+        <param key="airDragCoefficient" value="0.350"/>
+        <param key="rotatingMass" value="40"/>
+        <param key="radialDragCoefficient" value="0.450"/>
+        <param key="rollDragCoefficient" value="0.010"/>
+        <param key="constantPowerIntake" value="500"/>
+        <param key="propulsionEfficiency" value="0.95"/>
+        <param key="recuperationEfficiency" value="0.95"/>
+        <param key="stoppingThreshold" value="0.1"/>
+        <param key="device.battery.maximumChargeRate" value="150000"/>
+    </vType>
+</vTypes>
