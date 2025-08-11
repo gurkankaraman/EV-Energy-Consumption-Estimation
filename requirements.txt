@@ -1,0 +1,4 @@
+pandas>=1.5.0
+numpy>=1.21.0
+traci>=1.15.0
+sumolib>=1.15.0
