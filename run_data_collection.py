@@ -9,9 +9,9 @@ Usage:
     python run_data_collection.py
 
 Requirements:
-    - SUMO installed
-    - Python packages installed (requirements.txt)
-    - main.sumocfg file exists
+    - SUMO must be installed
+    - Python packages must be installed (requirements.txt)
+    - main.sumocfg file must exist
 """
 
 import os
@@ -84,18 +84,18 @@ def main():
             print("Simulation started, data collection started...")
             
             start_time = time.time()
-            df = collector.collect_data("buyukdere_simulation_data.csv")
+            df = collector.collect_data("buyukdere_simulation_data_final.csv")
             end_time = time.time()
             
             if df is not None:
                 print(f"\n✓ Data collection completed! ({end_time - start_time:.1f} seconds)")
-                print(f"✓ Data saved to 'buyukdere_simulation_data.csv'")
+                print(f"✓ Data saved to 'buyukdere_simulation_data_final.csv'")
                 print(f"✓ Total records: {len(df):,}")
                 print(f"✓ Unique vehicle count: {df['vehicle_id'].nunique()}")
                 print(f"✓ Unique vehicle types: {df['vehicle_type'].nunique()}")
                 
                 # Show file size
-                file_size = os.path.getsize("buyukdere_simulation_data.csv") / (1024 * 1024)  # MB
+                file_size = os.path.getsize("buyukdere_simulation_data_final.csv") / (1024 * 1024)  # MB
                 print(f"✓ File size: {file_size:.2f} MB")
                 
             else:

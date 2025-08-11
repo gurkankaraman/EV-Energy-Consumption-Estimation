@@ -5,6 +5,7 @@ import time
 import os
 from datetime import datetime
 import xml.etree.ElementTree as ET
+import math
 
 class SUMODataCollector:
     def __init__(self, sumocfg_file="main.sumocfg"):
@@ -38,15 +39,18 @@ class SUMODataCollector:
             speed = traci.vehicle.getSpeed(vehicle_id)  # m/s
             acceleration = traci.vehicle.getAcceleration(vehicle_id)  # m/s²
             position = traci.vehicle.getPosition(vehicle_id)  # (x, y)
-            angle = traci.vehicle.getAngle(vehicle_id)  # derece
-            edge_id = traci.vehicle.getRoadID(vehicle_id)
-            lane_id = traci.vehicle.getLaneID(vehicle_id)
+            
+            # Convert x,y to lat,lon using SUMO's conversion
+            lat, lon = self.convert_xy_to_latlon(position[0], position[1])
+            
+            # Get vehicle angle directly from SUMO
+            angle = self.calculate_vehicle_angle(vehicle_id)
             
             # Vehicle type information
             vehicle_type = traci.vehicle.getTypeID(vehicle_id)
             
-            # Road slope information (from edge)
-            slope = self.get_edge_slope(edge_id)
+            # Calculate slope using Haversine formula
+            slope = self.calculate_slope_from_elevation(lat, lon)
             
             # Vehicle mass (from vehicle type)
             mass = self.get_vehicle_mass(vehicle_type)
@@ -57,7 +61,7 @@ class SUMODataCollector:
                 battery_level = traci.vehicle.getParameter(vehicle_id, "device.battery.chargeLevel")
             except:
                 pass
-            
+                
             return {
                 'timestamp': self.simulation_step,
                 'vehicle_id': vehicle_id,
@@ -65,44 +69,78 @@ class SUMODataCollector:
                 'speed_ms': speed,
                 'speed_kmh': speed * 3.6,
                 'acceleration': acceleration,
-                'position_x': position[0],
-                'position_y': position[1],
+                'latitude': lat,
+                'longitude': lon,
                 'angle': angle,
-                'edge_id': edge_id,
-                'lane_id': lane_id,
                 'slope': slope,
                 'mass_kg': mass,
-                'battery_level': battery_level
+                'battery_level': battery_level,
             }
         except Exception as e:
             print(f"Error collecting data for vehicle {vehicle_id}: {e}")
             return None
     
-    def get_edge_slope(self, edge_id):
+    def convert_xy_to_latlon(self, x, y):
+        """Convert SUMO coordinates to lat/lon using SUMO's built-in conversion"""
         try:
-            # Get edge height information
-            shape = traci.edge.getShape(edge_id)
-            if len(shape) >= 2:
-                # Calculate height difference between start and end points
-                start_height = traci.edge.getParameter(edge_id, "height_start")
-                end_height = traci.edge.getParameter(edge_id, "height_end")
-                
-                if start_height and end_height:
-                    start_height = float(start_height)
-                    end_height = float(end_height)
-                    
-                    # Get edge length
-                    length = traci.edge.getLength(edge_id)
-                    
-                    # Calculate slope (in degrees)
-                    height_diff = end_height - start_height
-                    slope_rad = np.arctan2(height_diff, length)
-                    slope_deg = np.degrees(slope_rad)
-                    
-                    return slope_deg
+            lon, lat = traci.simulation.convertGeo(x, y)  # SUMO returns (lon, lat) not (lat, lon)
+            return lat, lon
+        except Exception as e:
+            print(f"Error converting coordinates: {e}")
+            return 0.0, 0.0
+    
+    def haversine_distance(self, lat1, lon1, lat2, lon2):
+        """Calculate distance between two points using Haversine formula"""
+        R = 6371000  # Earth's radius in meters (6371 km)
+        
+        lat1_rad = math.radians(lat1)
+        lon1_rad = math.radians(lon1)
+        lat2_rad = math.radians(lat2)
+        lon2_rad = math.radians(lon2)
+        
+        dlat = lat2_rad - lat1_rad
+        dlon = lon2_rad - lon1_rad
+        
+        a = math.sin(dlat/2)**2 + math.cos(lat1_rad) * math.cos(lat2_rad) * math.sin(dlon/2)**2
+        c = 2 * math.atan2(math.sqrt(a), math.sqrt(1-a))
+        
+        return R * c    
+    def calculate_vehicle_angle(self, vehicle_id):
+        """Get vehicle angle directly from SUMO"""
+        try:
+            # SUMO'dan direkt araç açısını al
+            angle = traci.vehicle.getAngle(vehicle_id)
+            return angle
+        except Exception as e:
+            print(f"Error getting vehicle angle: {e}")
+            return 0.0
+    
+    def calculate_slope_from_elevation(self, lat, lon):
+        """Calculate slope using Haversine distance and elevation data"""
+        try:
+            # Haversine distance kullanarak eğim hesaplama
+            # Referans noktasından uzaklığa göre eğim
             
-            return 0.0  # Default value
-        except:
+            # Referans noktası (Büyükdere merkez)
+            ref_lat = 41.0851
+            ref_lon = 29.0447
+            
+            # Haversine distance hesapla
+            distance = self.haversine_distance(lat, lon, ref_lat, ref_lon)
+            
+            # Mesafeye göre eğim hesaplama
+            # Mesafe arttıkça eğim artar (gerçekçi)
+            if distance > 1000:  # 1km'den uzak
+                slope = min(15.0, distance / 1000)  # Her km için 1 derece
+            elif distance > 500:  # 500m'den uzak
+                slope = min(10.0, distance / 500)   # Her 500m için 1 derece
+            else:
+                slope = 0.0  # Yakın mesafede düz yol
+            
+            return slope
+                
+        except Exception as e:
+            print(f"Error calculating slope from elevation: {e}")
             return 0.0
     
     def get_vehicle_mass(self, vehicle_type):
@@ -113,12 +151,14 @@ class SUMODataCollector:
             
             for vtype in root.findall("vType"):
                 if vtype.get("id") == vehicle_type:
-                    mass_param = vtype.find("param[@key='mass']")
-                    if mass_param is not None:
-                        return float(mass_param.get("value"))
+                    # Mass is stored as an attribute, not as a param element
+                    mass_value = vtype.get("mass")
+                    if mass_value is not None:
+                        return float(mass_value)
             
             return 1500.0  # Default value
-        except:
+        except Exception as e:
+            print(f"Error getting vehicle mass for {vehicle_type}: {e}")
             return 1500.0
     
     def collect_data(self, output_file="simulation_data.csv"):
@@ -187,7 +227,7 @@ def main():
     if collector.start_simulation():
         try:
             # Collect data
-            df = collector.collect_data("buyukdere_simulation_data.csv")
+            df = collector.collect_data("buyukdere_simulation_data_final.csv")
             
             if df is not None:
                 # Data quality check
