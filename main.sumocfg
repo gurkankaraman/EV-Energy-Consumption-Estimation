@@ -9,4 +9,10 @@
         <begin value="0"/>
         <end value="1500"/>
     </time>
+
+    <output>
+        <fcd-output value="fcd_output.xml"/>
+        <emission-output value="emission_output.xml"/>
+    </output>
+
 </configuration>
