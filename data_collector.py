@@ -39,12 +39,15 @@ class SUMODataCollector:
             speed = traci.vehicle.getSpeed(vehicle_id)  # m/s
             acceleration = traci.vehicle.getAcceleration(vehicle_id)  # m/s²
             position = traci.vehicle.getPosition(vehicle_id)  # (x, y)
+            z = traci.vehicle.getPosition3D(vehicle_id) [2]#(x, y, z)
+            edge_id = traci.vehicle.getRoadID(vehicle_id) #string
+            lane_id = traci.vehicle.getLaneID(vehicle_id) #string
+            lane_position = traci.vehicle.getLanePosition(vehicle_id) #m
+            angle = traci.vehicle.getAngle(vehicle_id) #degree
+            lane_speed_limit = traci.lane.getMaxSpeed(lane_id) #km/h
             
             # Convert x,y to lat,lon using SUMO's conversion
             lat, lon = self.convert_xy_to_latlon(position[0], position[1])
-            
-            # Get vehicle angle directly from SUMO
-            angle = self.calculate_vehicle_angle(vehicle_id)
             
             # Vehicle type information
             vehicle_type = traci.vehicle.getTypeID(vehicle_id)
@@ -54,6 +57,20 @@ class SUMODataCollector:
             
             # Vehicle mass (from vehicle type)
             mass = self.get_vehicle_mass(vehicle_type)
+
+            # Battery information
+            charge_level = traci.vehicle.getParameter(vehicle_id, "device.battery.chargeLevel")  # Wh
+            capacity = traci.vehicle.getParameter(vehicle_id, "device.battery.capacity")  # Wh
+
+            # SOC (%) hesaplama
+            soc_pc = None
+            try:
+                if charge_level is not None and capacity not in (None, "0", 0, 0.0):
+                    soc_pc = 100.0 * (float(charge_level) / float(capacity))
+            except Exception:
+                soc_pc = None
+
+            energy_consumption = traci.vehicle.getParameter(vehicle_id, "device.battery.energyConsumed")  # Wh
             
             # Battery information (for electric vehicles)
             battery_level = None
@@ -68,13 +85,21 @@ class SUMODataCollector:
                 'vehicle_type': vehicle_type,
                 'speed_ms': speed,
                 'speed_kmh': speed * 3.6,
-                'acceleration': acceleration,
-                'latitude': lat,
-                'longitude': lon,
+                'lat': lat,
+                'lon': lon,
+                'edge_id': edge_id,
+                'lane_id': lane_id,
+                'lane_position': lane_position,
                 'angle': angle,
+                'lane_speed_limit': lane_speed_limit,
+                'charge_level': charge_level,
+                'capacity': capacity,
+                'acceleration': acceleration,
                 'slope': slope,
                 'mass_kg': mass,
                 'battery_level': battery_level,
+                'soc_pc': soc_pc,
+                'energy_consumption': energy_consumption
             }
         except Exception as e:
             print(f"Error collecting data for vehicle {vehicle_id}: {e}")
@@ -105,15 +130,6 @@ class SUMODataCollector:
         c = 2 * math.atan2(math.sqrt(a), math.sqrt(1-a))
         
         return R * c    
-    def calculate_vehicle_angle(self, vehicle_id):
-        """Get vehicle angle directly from SUMO"""
-        try:
-            # SUMO'dan direkt araç açısını al
-            angle = traci.vehicle.getAngle(vehicle_id)
-            return angle
-        except Exception as e:
-            print(f"Error getting vehicle angle: {e}")
-            return 0.0
     
     def calculate_slope_from_elevation(self, lat, lon):
         """Calculate slope using Haversine distance and elevation data"""
