@@ -52,9 +52,6 @@ class SUMODataCollector:
             # Vehicle type information
             vehicle_type = traci.vehicle.getTypeID(vehicle_id)
             
-            # Calculate slope using Haversine formula
-            slope = self.calculate_slope_from_elevation(lat, lon)
-            
             # Vehicle mass (from vehicle type)
             mass = self.get_vehicle_mass(vehicle_type)
 
@@ -87,6 +84,7 @@ class SUMODataCollector:
                 'speed_kmh': speed * 3.6,
                 'lat': lat,
                 'lon': lon,
+                'z': z,
                 'edge_id': edge_id,
                 'lane_id': lane_id,
                 'lane_position': lane_position,
@@ -95,7 +93,6 @@ class SUMODataCollector:
                 'charge_level': charge_level,
                 'capacity': capacity,
                 'acceleration': acceleration,
-                'slope': slope,
                 'mass_kg': mass,
                 'battery_level': battery_level,
                 'soc_pc': soc_pc,
@@ -112,52 +109,7 @@ class SUMODataCollector:
             return lat, lon
         except Exception as e:
             print(f"Error converting coordinates: {e}")
-            return 0.0, 0.0
-    
-    def haversine_distance(self, lat1, lon1, lat2, lon2):
-        """Calculate distance between two points using Haversine formula"""
-        R = 6371000  # Earth's radius in meters (6371 km)
-        
-        lat1_rad = math.radians(lat1)
-        lon1_rad = math.radians(lon1)
-        lat2_rad = math.radians(lat2)
-        lon2_rad = math.radians(lon2)
-        
-        dlat = lat2_rad - lat1_rad
-        dlon = lon2_rad - lon1_rad
-        
-        a = math.sin(dlat/2)**2 + math.cos(lat1_rad) * math.cos(lat2_rad) * math.sin(dlon/2)**2
-        c = 2 * math.atan2(math.sqrt(a), math.sqrt(1-a))
-        
-        return R * c    
-    
-    def calculate_slope_from_elevation(self, lat, lon):
-        """Calculate slope using Haversine distance and elevation data"""
-        try:
-            # Haversine distance kullanarak eğim hesaplama
-            # Referans noktasından uzaklığa göre eğim
-            
-            # Referans noktası (Büyükdere merkez)
-            ref_lat = 41.0851
-            ref_lon = 29.0447
-            
-            # Haversine distance hesapla
-            distance = self.haversine_distance(lat, lon, ref_lat, ref_lon)
-            
-            # Mesafeye göre eğim hesaplama
-            # Mesafe arttıkça eğim artar (gerçekçi)
-            if distance > 1000:  # 1km'den uzak
-                slope = min(15.0, distance / 1000)  # Her km için 1 derece
-            elif distance > 500:  # 500m'den uzak
-                slope = min(10.0, distance / 500)   # Her 500m için 1 derece
-            else:
-                slope = 0.0  # Yakın mesafede düz yol
-            
-            return slope
-                
-        except Exception as e:
-            print(f"Error calculating slope from elevation: {e}")
-            return 0.0
+            return 0.0, 0.0   
     
     def get_vehicle_mass(self, vehicle_type):
         try:
