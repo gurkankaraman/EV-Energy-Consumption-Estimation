@@ -2,3 +2,5 @@ pandas>=1.5.0
 numpy>=1.21.0
 traci>=1.15.0
 sumolib>=1.15.0
+pyproj>=3.4.0
+scikit-learn>=1.2.0
