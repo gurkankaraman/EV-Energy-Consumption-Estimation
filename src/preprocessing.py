@@ -65,7 +65,58 @@ df = df.drop(columns=['z_filled'])
 columns_to_drop = ['color', 'sigma','has.battery.device','stoppingThreshold','edge_id', 'lane_id',]
 df = df.drop(columns=[col for col in columns_to_drop if col in df.columns], errors='ignore')
 
-df.to_csv("../data/sumo_data_filled.csv", index=False)
+# --------------------------
+# Haversine ile mesafe, % eğim ve eğim değişimi
+# --------------------------
+R = 6371000  # Dünya yarıçapı (metre)
+
+def haversine(lat1, lon1, lat2, lon2):
+    lat1, lon1, lat2, lon2 = map(np.radians, [lat1, lon1, lat2, lon2])
+    dlat = lat2 - lat1
+    dlon = lon2 - lon1
+    a = np.sin(dlat/2)**2 + np.cos(lat1) * np.cos(lat2) * np.sin(dlon/2)**2
+    c = 2 * np.arctan2(np.sqrt(a), np.sqrt(1-a))
+    return R * c
+
+# Bir önceki nokta değerleri
+df['lat_prev'] = df.groupby('vehicle_id')['lat'].shift()
+df['lon_prev'] = df.groupby('vehicle_id')['lon'].shift()
+df['z_prev']   = df.groupby('vehicle_id')['z'].shift()
+
+# Yatay mesafe (m)
+df['dist_m'] = haversine(df['lat_prev'], df['lon_prev'], df['lat'], df['lon'])
+
+# % eğim
+df['slope_pct'] = (df['z'] - df['z_prev']) / df['dist_m'] * 100 
+
+# % eğim değişimi (%)
+df['slope_change_pct'] = df.groupby('vehicle_id')['slope_pct'].diff() #  Bir önceki eğime göre eğim farkı (%)
+
+# Geçersiz verileri temizle
+df.loc[df['dist_m'] == 0, ['slope_pct', 'slope_change_pct']] = np.nan
+
+# Gereksiz yardımcı sütunları sil
+df = df.drop(columns=['lat_prev', 'lon_prev', 'z_prev'])
+
+# Kaydet
+df.to_csv("../data/final_training_data.csv", index=False)
+
+# --------------------------
+# Mini veri analizi
+# --------------------------
+print("\nFinal veri başarıyla kaydedildi: ../data/final_training_data.csv")
+
+print("\nVeri boyutu (satır, sütun):", df.shape)
+
+print("\nİlk 5 satır:")
+print(df.head())
+
+print("\nSayısal sütunların özet istatistikleri:")
+print(df.describe())
+
+print("\nEksik değer sayıları:")
+print(df.isnull().sum())
+
 
 
 
