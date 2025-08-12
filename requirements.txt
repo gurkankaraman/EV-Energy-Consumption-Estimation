@@ -4,4 +4,4 @@ traci>=1.15.0
 sumolib>=1.15.0
 pyproj
 scikit-learn
-numpy
+
