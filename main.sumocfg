@@ -1,12 +1,7 @@
 <configuration>
     <input>
-        <net-file value="eskisehir_last.net.xml"/>
+        <net-file value="eskisehir_last_with_z.net.xml"/>
         <route-files value="random_routes.rou.xml"/>
         <additional-files value="vehicles.add.xml"/>
     </input>
-    
-    <time>
-        <begin value="0"/>
-        <end value="1500"/>
-    </time>
 </configuration>
