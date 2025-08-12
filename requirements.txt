@@ -1,3 +1,7 @@
+pandas>=1.5.0
 numpy>=1.21.0
-pyproj>=3.3.0
-rasterio>=1.2.10
+traci>=1.15.0
+sumolib>=1.15.0
+pyproj
+scikit-learn
+numpy
