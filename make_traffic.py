@@ -4,9 +4,9 @@ import random
 import sumolib  # Comes with SUMO; if missing: pip install sumolib
 
 # --- SETTINGS ---
-input_xml = "eskisehir_height3d_edges_only.net.xml"   # SUMO network file containing edges
+input_xml = "eskisehir_last.net.xml"   # SUMO network file containing edges
 output_rou = "random_routes.rou.xml"                  # output routes file
-num_vehicles = 1000                                   # number of vehicles to generate
+num_vehicles = 600                                   # number of vehicles to generate
 max_attempts_multiplier = 50                          # limit for path search attempts (= num_vehicles * multiplier)
 
 # 1) Extract residential edge IDs from the network XML

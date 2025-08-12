@@ -1,6 +1,6 @@
 <configuration>
     <input>
-        <net-file value="eskisehir_height3d_edges_only.net.xml"/>
+        <net-file value="eskisehir_last.net.xml"/>
         <route-files value="random_routes.rou.xml"/>
         <additional-files value="vehicles.add.xml"/>
     </input>
