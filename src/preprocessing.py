@@ -62,7 +62,7 @@ df['z_filled'] = df.groupby('vehicle_id')['z'].transform(
 df['z'] = df['z_filled']
 df = df.drop(columns=['z_filled'])
 
-columns_to_drop = ['color', 'sigma','has.battery.device','stoppingThreshold','edge_id', 'lane_id',]
+columns_to_drop = ['color', 'sigma','has.battery.device','stoppingThreshold','edge_id', 'lane_id', 'vehicle_type', 'speed_ms', 'lane_position', 'angle', 'lane_speed_limit', 'charge_level', 'capacity', 'battery_level', 'max_speed', 'length', 'min_gap', 'mass']
 df = df.drop(columns=[col for col in columns_to_drop if col in df.columns], errors='ignore')
 
 # --------------------------
@@ -89,11 +89,8 @@ df['dist_m'] = haversine(df['lat_prev'], df['lon_prev'], df['lat'], df['lon'])
 # % eğim
 df['slope_pct'] = (df['z'] - df['z_prev']) / df['dist_m'] * 100 
 
-# % eğim değişimi (%)
-df['slope_change_pct'] = df.groupby('vehicle_id')['slope_pct'].diff() #  Bir önceki eğime göre eğim farkı (%)
-
 # Geçersiz verileri temizle
-df.loc[df['dist_m'] == 0, ['slope_pct', 'slope_change_pct']] = np.nan
+df.loc[df['dist_m'] == 0, ['slope_pct']] = np.nan
 
 # Gereksiz yardımcı sütunları sil
 df = df.drop(columns=['lat_prev', 'lon_prev', 'z_prev'])
