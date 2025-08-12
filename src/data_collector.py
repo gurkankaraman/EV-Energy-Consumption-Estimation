@@ -24,7 +24,7 @@ class SUMODataCollector:
         try:
             # Start SUMO
             sumo_binary = "sumo" 
-            sumo_cmd = [sumo_binary, "-c", self.sumocfg_file, "--tripinfo-output", "tripinfo.xml"]
+            sumo_cmd = [sumo_binary, "-c", self.sumocfg_file, "--tripinfo-output", "../output/tripinfo.xml"]
             
             traci.start(sumo_cmd)
             print("SUMO simulation started")
