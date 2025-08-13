@@ -4,9 +4,9 @@ import random
 import sumolib  # Comes with SUMO; if missing: pip install sumolib
 
 # --- SETTINGS ---
-input_xml = "eskisehir_last_with_z.net.xml"   # SUMO network file containing edges
-output_rou = "random_routes.rou.xml"                  # output routes file
-num_vehicles = 1500                                  # number of vehicles to generate
+input_xml = "config/eskisehir_last_with_z.net.xml"   # SUMO network file containing edges
+output_rou = "config/random_routes.rou.xml"                  # output routes file
+num_vehicles = 300                                  # number of vehicles to generate
 max_attempts_multiplier = 50                          # limit for path search attempts (= num_vehicles * multiplier)
 
 # 1) Extract residential edge IDs from the network XML
@@ -25,17 +25,64 @@ if len(residential_ids) < 2:
 # 1b) Load the network with sumolib for path calculation
 net = sumolib.net.readNet(input_xml)
 
-def route_edges_between(edge_from_id, edge_to_id):
-    """Find the shortest path from edge_from_id to edge_to_id. Return a list of edge IDs or None if no path exists."""
+def route_edges_between_and_extend(edge_from_id, edge_to_id, steps=10, attempts_per_step=20):
+    """
+    edge_from_id -> edge_to_id için en kısa yolu bulur, ardından e_to'dan başlayıp
+    rastgele hedeflere doğru 'steps' kez daha uzatır.
+    Yol parçalarını birleştirir ve edge ID'lerinin listesini döndürür.
+    Her adımda yol bulunamazsa birkaç kez (attempts_per_step) başka hedefler dener.
+    Hiç yol bulunamazsa o ana kadarki birikmiş yol döndürülür; başlangıçta hiç yol yoksa None döner.
+    """
     try:
         e_from = net.getEdge(edge_from_id)
         e_to   = net.getEdge(edge_to_id)
     except Exception:
         return None
+
+    # İlk parça: e_from -> e_to
     path, _ = net.getShortestPath(e_from, e_to)  # Dijkstra
     if not path:
         return None
-    return [e.getID() for e in path]
+
+    full_ids = [e.getID() for e in path]
+    current_edge = e_to
+
+    # Rastgele seçimler için hazır liste
+    try:
+        all_edges = list(net.getEdges())
+    except Exception:
+        # Bazı API'lerde getEdges yerine getEdgeIDs kullanılabilir
+        all_edges = [net.getEdge(eid) for eid in net.getEdgeIDs()]
+
+    # 'steps' kez daha yol ekle
+    for _ in range(steps):
+        extended = False
+
+        # Yol çıkmayan hedeflere takılmamak için birkaç deneme yap
+        for _try in range(attempts_per_step):
+            cand = random.choice(all_edges)
+            if cand.getID() == current_edge.getID():
+                continue
+
+            seg, _ = net.getShortestPath(current_edge, cand)
+            if not seg:
+                continue
+
+            # Segmenti ekle (bağlantı kenarı tekrarını önlemek için ilk kenarı atla)
+            seg_ids = [e.getID() for e in seg]
+            if full_ids and seg_ids and full_ids[-1] == seg_ids[0]:
+                seg_ids = seg_ids[1:]
+
+            full_ids.extend(seg_ids)
+            current_edge = cand
+            extended = True
+            break
+
+        if not extended:
+            # Bu adımda hiç yol bulunamadı; uzatmayı erken kes.
+            break
+
+    return full_ids
 
 # 2) Create the root <routes> element
 routes_root = ET.Element("routes")
@@ -48,7 +95,7 @@ max_attempts = num_vehicles * max_attempts_multiplier
 while created < num_vehicles and attempts < max_attempts:
     attempts += 1
     a, b = random.sample(residential_ids, 2)
-    path_edges = route_edges_between(a, b)
+    path_edges = route_edges_between_and_extend(a, b)
     if not path_edges:
         continue  # No connection; try another pair
 

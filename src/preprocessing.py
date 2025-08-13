@@ -3,10 +3,10 @@ import xml.etree.ElementTree as ET
 import numpy as np
 
 #CSV verisi
-df_csv = pd.read_csv("../data/buyukdere_simulation_data_final.csv")
+df_csv = pd.read_csv("data/buyukdere_simulation_data_final.csv")
 
 #XML araç tipi bilgisi
-tree = ET.parse("../config/vehicles.add.xml")
+tree = ET.parse("config/vehicles.add.xml")
 root = tree.getroot()
 
 vehicle_types = []
@@ -96,7 +96,7 @@ df.loc[df['dist_m'] == 0, ['slope_pct']] = np.nan
 df = df.drop(columns=['lat_prev', 'lon_prev', 'z_prev'])
 
 # Kaydet
-df.to_csv("../data/final_training_data.csv", index=False)
+df.to_csv("data/final_training_data.csv", index=False)
 
 # --------------------------
 # Mini veri analizi

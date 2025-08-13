@@ -8,7 +8,7 @@ import xml.etree.ElementTree as ET
 import math
 
 class SUMODataCollector:
-    def __init__(self, sumocfg_file="main.sumocfg"):
+    def __init__(self, sumocfg_file="config/main.sumocfg"):
         """
         Data collector class for SUMO simulation
         
@@ -24,7 +24,7 @@ class SUMODataCollector:
         try:
             # Start SUMO
             sumo_binary = "sumo" 
-            sumo_cmd = [sumo_binary, "-c", self.sumocfg_file, "--tripinfo-output", "../output/tripinfo.xml"]
+            sumo_cmd = [sumo_binary, "-c", self.sumocfg_file, "--tripinfo-output", "output/tripinfo.xml"]
             
             traci.start(sumo_cmd)
             print("SUMO simulation started")
@@ -114,7 +114,7 @@ class SUMODataCollector:
     def get_vehicle_mass(self, vehicle_type):
         try:
             # Read vehicle type information from vehicles.add.xml
-            tree = ET.parse("../config/vehicles.add.xml")
+            tree = ET.parse("config/vehicles.add.xml")
             root = tree.getroot()
             
             for vtype in root.findall("vType"):
@@ -189,14 +189,13 @@ def main():
     print("SUMO Data Collector started...")
     
     # Create data collector
-    collector = SUMODataCollector("../config/main.sumocfg")
+    collector = SUMODataCollector("config/main.sumocfg")
     
     # Start simulation
     if collector.start_simulation():
         try:
             # Collect data
-            df = collector.collect_data("../data/buyukdere_simulation_data_final.csv")
-            
+            df = collector.collect_data("data/buyukdere_simulation_data_final.csv")        
             if df is not None:
                 # Data quality check
                 print("\n=== DATA QUALITY CHECK ===")
